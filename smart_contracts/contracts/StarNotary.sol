@@ -1,22 +1,28 @@
 pragma solidity ^0.4.23;
 
-import 'openzeppelin-solidity/contracts/token/ERC721/ERC721.sol';
+import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 
 contract StarNotary is ERC721 { 
 
     struct Star { 
-        string name; 
+        string racCoordinator;
+        string decCoordinator;
+        string magCoordinator;
+        string storyDescription;
+        bool assigned;
     }
 
     mapping(uint256 => Star) public tokenIdToStarInfo; 
     mapping(uint256 => uint256) public starsForSale;
 
-    function createStar(string _name, uint256 _tokenId) public { 
-        Star memory newStar = Star(_name);
+    function createStar(string _ra, string _dec, string _mag, string _story, uint256 _tokenId) public { 
+        require(this.checkIfStarExist(_tokenId) != true);
+        Star memory newStar = Star(_ra, _dec, _mag, _story, true);
 
         tokenIdToStarInfo[_tokenId] = newStar;
 
         _mint(msg.sender, _tokenId);
+
     }
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public { 
@@ -40,5 +46,9 @@ contract StarNotary is ERC721 {
         if(msg.value > starCost) { 
             msg.sender.transfer(msg.value - starCost);
         }
+    }
+
+    function checkIfStarExist(uint256 _tokenId) public view returns (bool) {
+        return tokenIdToStarInfo[_tokenId].assigned;
     }
 }
