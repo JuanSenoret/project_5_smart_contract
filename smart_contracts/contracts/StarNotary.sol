@@ -1,6 +1,7 @@
 pragma solidity ^0.4.23;
 
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+//import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 
 contract StarNotary is ERC721 { 
 
@@ -11,15 +12,19 @@ contract StarNotary is ERC721 {
         string storyDescription;
         bool assigned;
     }
+    uint256 tokenId;
 
     mapping(uint256 => Star) public tokenIdToStarInfo; 
     mapping(uint256 => uint256) public starsForSale;
+    mapping(string => bool) private starAssigned;
 
     function createStar(string _ra, string _dec, string _mag, string _story, uint256 _tokenId) public { 
-        require(this.checkIfStarExist(_tokenId) != true);
+        require(!this.checkIfStarExist(_ra, _dec, _mag));
+
         Star memory newStar = Star(_ra, _dec, _mag, _story, true);
 
         tokenIdToStarInfo[_tokenId] = newStar;
+        starAssigned[this.append(_ra, _dec, _mag)] = true;
 
         _mint(msg.sender, _tokenId);
 
@@ -48,7 +53,11 @@ contract StarNotary is ERC721 {
         }
     }
 
-    function checkIfStarExist(uint256 _tokenId) public view returns (bool) {
-        return tokenIdToStarInfo[_tokenId].assigned;
+    function checkIfStarExist(string _ra, string _dec, string _mag) public view returns (bool) {
+        return starAssigned[this.append(_ra, _dec, _mag)];
+    }
+
+    function append(string _ra, string _dec, string _mag) public pure returns (string) {
+        return string(abi.encodePacked(_ra, _dec, _mag));
     }
 }
