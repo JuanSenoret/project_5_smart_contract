@@ -1,5 +1,6 @@
 .idea
 .DS_Store
+smart_contracts/truffle.js
 smart_contracts/node_modules
 RESTful_API/node_modules
 RESTful_API/config/network_config.json
