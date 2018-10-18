@@ -12,11 +12,11 @@ contract StarNotary is ERC721 {
         string storyDescription;
         bool assigned;
     }
-    uint256 tokenId;
 
     mapping(uint256 => Star) public tokenIdToStarInfo; 
     mapping(uint256 => uint256) public starsForSale;
     mapping(string => bool) private starAssigned;
+    event starCreated(address owner);
 
     function createStar(string _ra, string _dec, string _mag, string _story, uint256 _tokenId) public { 
         require(!this.checkIfStarExist(_ra, _dec, _mag));
@@ -27,6 +27,8 @@ contract StarNotary is ERC721 {
         starAssigned[this.append(_ra, _dec, _mag)] = true;
 
         _mint(msg.sender, _tokenId);
+
+        emit starCreated(msg.sender);
 
     }
 

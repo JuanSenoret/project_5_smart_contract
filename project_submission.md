@@ -1,11 +1,11 @@
 # Part 3: Deploy smart contract on a public Rinkeby test network
 Deploy the contract:
-Contract Transaction Hash -> 0x1e852a20b9d6f4622ac8d7ab0461451b9d6b672ad4970add5b270c054169d980
-Contract Address -> 0x75008c8fb84dee9fa93fe959b48a94b6e08f80bf
+Contract Transaction Hash -> 0x4274830dcee9f43be477eefaa40f01f1701e8d3a6683c3b95749be4ef1784134
+Contract Address -> 0xc5f0a4f9c71a5eb42ef16de37d56c80c4ef4ade3
 
 Create star:
-Transaction Hash -> 0x7bddf74673f9db6c535105f76a2eff5b95049a372c1f3a6a296d5e6a6de55c0a
+Transaction Hash -> 0x2a08c4f7b15b7ddb85f420eaa742a994845985a11e4ba16abb36475c286e0a18
 Token ID -> 1
 
 Put the star with token ID 1 to buy
-Transaction Hash -> 0xeafc308c4365d46e03b4dd4f4cc7685bdec5a242534eea7172301fda7c4100c2
+Transaction Hash -> 0xe711adee2144683ebc258118dd94b20ead0d06304d211e6cb9e4c140108b6114
