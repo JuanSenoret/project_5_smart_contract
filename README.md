@@ -21,10 +21,6 @@ npm install -g ganache-cli
 ```
 npm install -g truffle
 ```
-- Install truffle-hdwallet-provider in your local environment
-```
-npm install -g truffle-hdwallet-provider
-```
 - Install http-server in your local environment. Light server container to serve your web page
 ```
 npm install -g http-server
@@ -37,7 +33,15 @@ git clone <url GitHuib Repo>
 ```
 cd <project name>/smart_contracts
 ```
-- Install the dependencies (openzeppelin-solidity)
+- Install the dependencies (openzeppelin-solidity, truffle-hdwallet-provider)
+```
+npm install
+```
+- Go to the following project folder
+```
+cd <project name>/RESTful_API
+```
+- Install the dependencies (hapi, web3, truffle-hdwallet-provider)
 ```
 npm install
 ```
@@ -120,3 +124,58 @@ http://127.0.0.1:8080
 ```
 - Under Create Star service you can create a star using the Ra-Dec-Mag coordinators
 - Under Search Star service you can search for a specific star using the Ra-Dec-Mag coordinators
+
+## Optional: Configure RESTful API endpoint to return a registered star
+
+We will create an RESTful API to interact with the Star Notary smart contract
+
+- Open in a terminal the RESTful_API folder
+```
+cd <project name>/RESTful_API
+```
+- Use the template in the config/network_config.example.json to create add your Infura API KEY, mnemonic and contract address and rename to network_config.json
+- If you want to use ma Star Notary contract address use 0xc5f0a4f9c71a5eb42ef16de37d56c80c4ef4ade3 in the key "contract_address"
+- Start the service
+```
+npm start
+```
+
+* **URL**
+
+  http://localhost:8000/star/[starTokenId]
+
+* **Method:**
+
+    `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+    `starTokenId=[integer]`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `[
+    "Star power 1!",
+    "Star owner is Udacity Blockchain Nanodegree",
+    "ra_032.155",
+    "dec_121.874",
+    "mag_245.978"
+]`
+
+* **Error Response:**
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{"error": "Error trying to conect to Rinkeby network"}`
+
+* **Sample Call:**
+
+  ```
+  curl "http://localhost:8000/star/1"
+  ```
